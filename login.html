@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <title>Cadastre-se sua empresa</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.6/inputmask.min.js"></script>
+    <script>
+        // Aplica a máscara no campo CNPJ
+        Inputmask('99.999.999/9999-99').mask(document.getElementById('cnpj'));
+
+        // Função para validar o CNPJ
+        function validarCNPJ(cnpj) {
+            // Validação básica do formato CNPJ
+            const regex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/;
+            if (!regex.test(cnpj)) {
+                alert('CNPJ inválido. O formato correto é: 99.999.999/9999-99');
+                return false;
+            }
+            return true;
+        }
+    </script>
+    
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-scholar.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <style>
+
+        *{
+            margin: auto;
+            margin-top: auto;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #a428ca;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+            margin-top: auto;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #a428ca;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #8fd2ed;
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .selection-container {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .selection-container button {
+            background-color: #ddd;
+            border: 1px solid #ccc;
+            width: 48%;
+            cursor: pointer;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .selection-container button:hover {
+            background-color: #bbb;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .form-container {
+                width: 90%;
+            }
+
+            .selection-container {
+                flex-direction: column;
+            }
+
+            .selection-container button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Cadastro SOS Marketing</h2>
+        <div class="selection-container">
+            <button onclick="showForm('empresa')">Cadastrar Empresa</button>
+            <button onclick="showForm('instituicao')">Cadastrar Instituição de Ensino</button>
+        </div>
+
+        <div id="empresa-form" class="form-section">
+            <h3>Cadastro de Empresa</h3>
+            <form action="submit_empresa.php" method="POST" onsubmit="return validarCNPJ(document.getElementById('cnpj').value)">
+                <label for="empresa_nome">Nome da Empresa:</label>
+                <input type="text" id="empresa_nome" name="empresa_nome" required aria-label="Nome da empresa">
+
+                <label for="segmento">Segmento da Empresa:</label>
+                <select id="segmento" name="segmento" required aria-label="Segmento da empresa">
+                    <option value="industria">Indústria</option>
+                    <option value="comercio">Comércio</option>
+                    <option value="servicos">Serviços</option>
+                </select>
+
+                <label for="cnpj">CNPJ:</label>
+                <input type="text" id="cnpj" name="cnpj" pattern="\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}" required aria-label="CNPJ">
+
+                <label for="email">E-mail de Contato:</label>
+                <input type="email" id="email" name="email" required aria-label="E-mail de contato">
+
+                <label for="telefone">Telefone de Contato:</label>
+                <input type="text" id="telefone" name="telefone" required aria-label="Telefone de contato">
+
+                <label for="endereco">Endereço da Empresa:</label>
+                <input type="text" id="endereco" name="endereco" required aria-label="Endereço da empresa">
+
+                <label for="interesse">Áreas de Interesse:</label>
+                <div>
+                    <input type="checkbox" id="normas_ambientais" name="interesse[]" value="normas_ambientais" aria-label="Atendimento a normas ambientais">
+                    <label for="normas_ambientais">Atendimento a normas ambientais</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="sustentabilidade" name="interesse[]" value="sustentabilidade" aria-label="Melhoria de práticas sustentáveis">
+                    <label for="sustentabilidade">Melhoria de práticas sustentáveis</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="treinamentos" name="interesse[]" value="treinamentos" aria-label="Treinamentos sobre sustentabilidade">
+                    <label for="treinamentos">Treinamentos sobre sustentabilidade</label>
+                </div>
+
+                <button type="submit">Cadastrar Empresa</button>
+            </form>
+        </div>
+
+        <div id="instituicao-form" class="form-section">
+            <h3>Cadastro para Instituições de Ensino</h3>
+            <form action="submit_instituicao.php" method="POST">
+                <label for="instituicao_nome">Nome da Instituição:</label>
+                <input type="text" id="instituicao_nome" name="instituicao_nome" required aria-label="Nome da instituição">
+
+                <label for="tipo">Tipo de Instituição:</label>
+                <select id="tipo" name="tipo" required aria-label="Tipo de instituição">
+                    <option value="universidade">Universidade</option>
+                    <option value="faculdade">Faculdade</option>
+                    <option value="escola">Escola Profissionalizante</option>
+                </select>
+
+                <label for="cnpj_instituicao">CNPJ da Instituição:</label>
+                <input type="text" id="cnpj_instituicao" name="cnpj_instituicao" required aria-label="CNPJ da instituição">
+
+                <label for="email_instituicao">E-mail de Contato:</label>
+                <input type="email" id="email_instituicao" name="email_instituicao" required aria-label="E-mail de contato da instituição">
+
+                <label for="telefone_instituicao">Telefone de Contato:</label>
+                <input type="text" id="telefone_instituicao" name="telefone_instituicao" required aria-label="Telefone de contato da instituição">
+
+                <label for="curso_interesse">Áreas de Interesse:</label>
+                <div>
+                    <input type="checkbox" id="curso_sustentabilidade" name="curso_interesse[]" value="curso_sustentabilidade" aria-label="Cursos sobre Sustentabilidade">
+                    <label for="curso_sustentabilidade">Cursos sobre Sustentabilidade</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="formacao_profissional" name="curso_interesse[]" value="formacao_profissional" aria-label="Formação Profissionalizante">
+                    <label for="formacao_profissional">Formação Profissionalizante</label>
+                </div>
+
+                <button type="submit">Cadastrar Instituição</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        // Função para alternar entre os formulários
+        function showForm(form) {
+            var empresaForm = document.getElementById('empresa-form');
+            var instituicaoForm = document.getElementById('instituicao-form');
+            if (form === 'empresa') {
+                empresaForm.classList.add('active');
+                instituicaoForm.classList.remove('active');
+            } else {
+                instituicaoForm.classList.add('active');
+                empresaForm.classList.remove('active');
+            }
+        }
+    </script>
+
+</body>
+
+</html>
